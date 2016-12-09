@@ -22,6 +22,7 @@ def sorteo(b1, b2, ac):
         acc.add(c)
         sorteo(b1.copy(), b2c, acc )
 
+# totally necessary lambda functions =D @mgomezch
 bombo = lambda x: set(t for t, i in ts.items() if i['p']==x)
 condition = lambda x, y: ts[x]['c'] != ts[y]['c'] and ts[x]['g'] != ts[y]['g']
 tournament = lambda x,y: set((w, l) for w in x for l in y if condition(w, l))
