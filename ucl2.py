@@ -4,8 +4,12 @@ import json
 with open('results.json', 'r') as ts_file:
     ts = json.load(ts_file)
 
-vg = 0	
-poss = dict()
+def print_bombo(b, idb):
+    print "Teams in bombo:", idb
+    for x in b:
+        print(x)
+    print("\n")
+        
 
 def sorteo(b1, b2, ac):
     global poss, vg
@@ -23,6 +27,7 @@ def sorteo(b1, b2, ac):
         sorteo(b1.copy(), b2c, acc )
 
 # totally necessary lambda functions =D @mgomezch
+
 bombo = lambda x: set(t for t, i in ts.items() if i['p']==x)
 condition = lambda x, y: ts[x]['c'] != ts[y]['c'] and ts[x]['g'] != ts[y]['g']
 tournament = lambda x,y: set((w, l) for w in x for l in y if condition(w, l))
@@ -30,18 +35,54 @@ tournament = lambda x,y: set((w, l) for w in x for l in y if condition(w, l))
 def main():
     pp = pprint.PrettyPrinter(indent=3)
     b1, b2 = bombo(1), bombo(2)
-    gs = tournament(b1, b2)
+    matches = {}
 
-    for g in gs:
-        poss[g] = 0
+    global vg, poss
+
+    while len(b1)>0:
+        gs = tournament(b1.copy(), b2.copy())
+        poss = dict()
+
+        for g in gs:
+            poss[g] = 0
+        
+        vg = 0
+
+        sorteo(b1.copy(), b2.copy(), set())
             
-    sorteo(b1, b2, set())
-            
-    for g in gs:
-        poss[g] = poss[g]*1.0/vg
+        for g in gs:
+            poss[g] = poss[g]*1.0/vg
                     
-    pp.pprint(poss)
-    print(vg)
+        pp.pprint(poss)
+        
+        print("\nSelect teams drafted by name \n")
+
+        match = ""
+        while match not in poss.keys():
+            print("Select team from bombo 1")
+            print_bombo(b1, "1")
+            team1 = ""
+            while team1 not in b1:
+                team1 = raw_input()
+            
+            print("Select team from bombo 2")
+        
+            print_bombo(b2, "2")
+            team2 = ""
+            
+            while team2 not in b2:
+                team2 = raw_input()
+            match = (unicode(team1), unicode(team2))        
+
+        b1.remove(team1)
+        b2.remove(team2)
+        matches[(team1, team2)] = poss[match]
+        print(len(b1))
+
+    print("Matches and probabilities")
+    for k, v in matches.items():
+        print("%s %.2f"%(k,v))
+        
 
 if __name__ == "__main__":
     main()
