@@ -1,5 +1,12 @@
 # Champions League probability calculator
 
+Fernando Crema
+Contact: fernandocremag@gmail.com
+
+----
+
+## Explanation
+
 Code to calculate the probability of every possible match in the Round of 16 given tournament conditions
 
 A game g between teams x and y is valid iff:
@@ -7,7 +14,7 @@ A game g between teams x and y is valid iff:
 1. x and y are not from the same country.
 1. x and y did'nt play in the same group.
 
-## Dumb implementation with combinatorics
+### Dumb implementation with combinatorics
 
 ```python
 # All posible matches with group condition and country condition
@@ -34,7 +41,7 @@ for comb in combinations(games, 8):
             poss[game] += 1
 ```
 
-## Better (faster) implementation using a (naive) BT:
+### Better (faster) implementation using a (naive) BT:
 
 ```python
 # b1 and b2 representes the sets of winners and runners-up of group stage.
