@@ -1,4 +1,5 @@
-# champions-league
+# Champions League probability calculator
+
 Code to calculate the probability of every possible match in the Round of 16 given tournament conditions
 
 A game g between teams x and y is valid iff:
@@ -56,3 +57,10 @@ def sorteo(b1, b2, ac):
         acc.add(c)
         sorteo(b1.copy(), b2c, acc)
 ```
+
+## Update 10/2020
+
+1. New conditions were added to the draw.
+1. How it works:
+    - [Explanation from Bleacher](https://bleacherreport.com/articles/2819840-uefa-champions-league-explained-how-the-tournament-works#:~:text=A%20draw%20takes%20place%20for,other%20holding%20the%20runners%2Dup.)
+    - [The Guardian](https://www.theguardian.com/football/2020/sep/30/champions-league-draw-explained-the-clubs-pots-format-and-more)
